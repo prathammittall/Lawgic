@@ -59,7 +59,7 @@ function Navbar() {
                     </div>
                 </div>
                 
-                <ul className='hidden md:flex gap-10 text-[#f3eee5]'>
+                <ul className='hidden md:flex gap-10'>
                     {navItems.map((item, index) => (
                         <li key={index}>
                             <a href={item.href} className="hover:text-gray-300 transition-colors">{item.name}</a>
