@@ -21,14 +21,20 @@ function Navbar() {
         { name: 'About', href: '#about' },
         { name: 'Services', href: '#services' },
         { name: 'FAQ', href: '#faq' },
-        { name: 'Contact', href: '#contact' }
+        { name: 'Contact', href: '#contact' },
+        { name: 'Login', href: 'https://lawgic-login-auth.vercel.app/' }
     ];
 
     const handleNavClick = (href) => {
-        const element = document.querySelector(href);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-            setMobileMenuOpen(false);
+        if (href.startsWith("http")) {
+            // Open external links normally
+            window.location.href = 'https://lawgic-login-auth.vercel.app/';
+        } else {
+            const element = document.querySelector(href);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                setMobileMenuOpen(false);
+            }
         }
     };
 
@@ -62,10 +68,20 @@ function Navbar() {
                 <ul className='hidden md:flex gap-10'>
                     {navItems.map((item, index) => (
                         <li key={index}>
-                            <a href={item.href} className="hover:text-gray-300 transition-colors">{item.name}</a>
+                            {/* <a href={item.href} className="hover:text-gray-300 transition-colors">{item.name}</a> */}
+                            <a href={item.href} onClick={(e) => {
+                                if (!item.href.startsWith("http")) {
+                                    e.preventDefault();
+                                    handleNavClick(item.href);
+                                }
+    }}
+    className="block px-2 py-1 hover:bg-[#f3eee5]/10 transition-colors"
+>
+    {item.name}
+</a>
+
                         </li>
                     ))}
-                    <li><a href="https://lawgic-login-auth.vercel.app/" className="hover:text-gray-300">Login</a></li>
                 </ul>
 
                 <div className="flex items-center">
